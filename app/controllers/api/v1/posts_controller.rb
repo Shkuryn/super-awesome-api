@@ -8,13 +8,24 @@ module Api
           render json: @posts
         end
         def create
-         # debugger
+      
           @post = @user.posts.new(post_params)
           if @post.save
               render json: @post, status: :created
           else
               render json: @post.errors, status: :unprocessable_entity
           end
+        end
+     
+        def destroy
+          
+          @post = @user.posts.find_by(id: params[:id])
+          if @post
+            @post.destroy
+          else
+            render json: {post: "not found"}, status: :not_found
+          end
+                
         end
    
         private
