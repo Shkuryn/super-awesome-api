@@ -1,5 +1,6 @@
 {
   "recommendations": [
-    "hoovercj.ruby-linter"
+    "hoovercj.ruby-linter",
+    "JPTarquino.postgresql"
   ]
 }
