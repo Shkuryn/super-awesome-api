@@ -3,7 +3,7 @@ module Api
     class CommentsController < ApplicationController
       include ActionController::HttpAuthentication::Token::ControllerMethods
       before_action :authenticate, only: [:create, :destroy]
-      # GET /comments
+      
       def index
         @comments = if params[:post_id]
                       Comment.with_post(params[:post_id])
@@ -25,7 +25,6 @@ module Api
 
       def destroy
         @comment = Comment.where('post_id = ?', params[:id]).where('user_id = ?', @user.id)
-        
         if @comment.count > 0
             @comment.each {|com| com.destroy} 
         else
