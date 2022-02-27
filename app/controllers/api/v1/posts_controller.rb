@@ -5,15 +5,15 @@ module Api
         before_action :authenticate, only: [:create, :destroy]
         
         def index
+          
           @par = {}
-          @par.store('user_id', params[:author].to_i) if params[:author]
+          @par.store('user_id', params[:user_id].to_i) if params[:user_id]
           @par.store('category', params[:category]) if params[:category]
-          @posts = @posts = if @par.size.zero?
-            # debugger
-            Post.find_by_sql(get_query_text)
-                            else
-            Post.filter(@par)
-                            end
+          if @par.size.zero?
+            @posts = Post.find_by_sql(get_query_text)
+          else
+            @posts = Post.filter(@par)
+          end
           render json: @posts
         end
 
